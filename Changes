@@ -1,8 +1,8 @@
-Revision history for Perinci-CmdLine-Generate
+Revision history for Perinci-CmdLine-Gen
 
 0.22    2015-10-11 (PERLANCAR)
 
-        - Split dist from App-GenPericmdScript to Perinci-CmdLine-Generate and
+        - Split dist from App-GenPericmdScript to Perinci-CmdLine-Gen and
           App-GenPericmdScript to avoid circular dependency.
 
 

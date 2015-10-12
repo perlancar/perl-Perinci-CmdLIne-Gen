@@ -1,4 +1,4 @@
-package Perinci::CmdLine::Generate;
+package Perinci::CmdLine::Gen;
 
 # DATE
 # VERSION
@@ -301,7 +301,7 @@ sub gen_pericmd_script {
         ($meta->{args} ? " to Riap function $args{url}" : ""), # a quick hack to guess meta is func metadata (XXX should've done an info Riap request)
         "\n",
         "# and generated automatically using ", __PACKAGE__,
-        " version ", ($Perinci::CmdLine::Generate::VERSION // '?'), "\n",
+        " version ", ($Perinci::CmdLine::Gen::VERSION // '?'), "\n",
     );
 
     # generate code

@@ -173,7 +173,7 @@ _
         },
         config_filename => {
             summary => 'Will be passed to Perinci::CmdLine constructor',
-            schema => 'str',
+            schema => ['any*', of=>['str*', ['array*', of=>'str*']]],
         },
         config_dirs => {
             summary => 'Will be passed to Perinci::CmdLine constructor',
@@ -373,7 +373,7 @@ sub gen_pericmd_script {
             (defined($args{pass_cmdline_object}) ? "    pass_cmdline_object => " . dump($args{pass_cmdline_object}) . ",\n" : ""),
             (defined($args{extra_urls_for_version}) ? "    extra_urls_for_version => " . dump($args{extra_urls_for_version}) . ",\n" : ""),
             (defined($args{read_config}) ? "    read_config => " . ($args{read_config} ? 1:0) . ",\n" : ""),
-            (defined($args{config_filename}) ? "    config_filename => " . dump($args{config_filename}) . ",\n" : ""),
+            (defined($args{config_filename}) ? "    config_filename => " . dump(ref($args{config_filename}) eq 'ARRAY' && @{$args{config_filename}}==1 ? $args{config_filename}[0] : $args{config_filename}) . ",\n" : ""),
             (defined($args{config_dirs}) ? "    config_dirs => " . dump($args{config_dirs}) . ",\n" : ""),
             (defined($args{read_env})    ? "    read_env => " . ($args{read_env} ? 1:0) . ",\n" : ""),
             (defined($args{env_name})    ? "    env_name => " . dump($args{env_name}) . ",\n" : ""),

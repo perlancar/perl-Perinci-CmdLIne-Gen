@@ -1,5 +1,18 @@
 Revision history for Perinci-CmdLine-Gen
 
+0.24    2016-01-07 (PERLANCAR)
+
+	- Add func.extra_modules result metadata.
+
+	- Add 'use Log::Any' (before any 'use Log::Any::IfLOG') when
+	  logging is enabled.
+
+	- Adjust to Perinci::CmdLine::Base 1.44 (config_filename can be an
+	  array for multiple filenames to search).
+
+	- Bump prereq version Log::Any::IfLOG to 0.07.
+
+
 0.23    2015-10-12 (PERLANCAR)
 
 	- [dzil] Re-add DZP:Rinci::Wrap.

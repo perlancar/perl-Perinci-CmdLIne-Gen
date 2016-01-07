@@ -336,6 +336,15 @@ sub gen_pericmd_script {
         $code = $res->[2];
     } else {
         $extra_modules->{'Log::Any'} = 0 if $args{log};
+        # determine minimum required version
+        if ($args{config_filename} && ref($args{config_filename}) eq 'ARRAY' && @{$args{config_filename}} > 1) {
+            # multiple values in config_filenames requires Perinci::CmdLine::Base 1.45
+            if ($cmdline_mod eq 'Perinci::CmdLine::Lite') {
+                $cmdline_mod_ver = 1.45;
+            } else {
+                $extra_modules->{'Perinci::CmdLine::Base'} = 1.45;
+            }
+        }
 
         $code = join(
             "",

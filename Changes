@@ -1,5 +1,11 @@
 Revision history for Perinci-CmdLine-Gen
 
+0.25    2016-01-07 (PERLANCAR)
+
+	- [Incompatible change] Make func.extra_modules hash instead of
+	  array, to be able to specify minimum version of modules.
+
+
 0.24    2016-01-07 (PERLANCAR)
 
 	- Add func.extra_modules result metadata.

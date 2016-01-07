@@ -304,6 +304,8 @@ sub gen_pericmd_script {
         " version ", ($Perinci::CmdLine::Gen::VERSION // '?'), "\n",
     );
 
+    my $extra_modules = [];
+
     # generate code
     my $code;
     if ($cmdline_mod eq 'Perinci::CmdLine::Inline') {
@@ -333,6 +335,8 @@ sub gen_pericmd_script {
         return $res if $res->[0] != 200;
         $code = $res->[2];
     } else {
+        push @$extra_modules, "Log::Any" if $args{log};
+
         $code = join(
             "",
             "#!", ($args{interpreter_path} // $^X), "\n",
@@ -426,6 +430,7 @@ sub gen_pericmd_script {
         'func.cmdline_module' => $cmdline_mod,
         'func.cmdline_module_version' => $cmdline_mod_ver,
         'func.cmdline_module_inlined' => ($cmdline_mod eq 'Perinci::CmdLine::Inline' ? 1:0),
+        'func.extra_modules' => $extra_modules,
         'func.script_name' => 0,
     }];
 }

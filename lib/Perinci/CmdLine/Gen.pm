@@ -304,7 +304,7 @@ sub gen_pericmd_script {
         " version ", ($Perinci::CmdLine::Gen::VERSION // '?'), "\n",
     );
 
-    my $extra_modules = [];
+    my $extra_modules = {};
 
     # generate code
     my $code;
@@ -335,7 +335,7 @@ sub gen_pericmd_script {
         return $res if $res->[0] != 200;
         $code = $res->[2];
     } else {
-        push @$extra_modules, "Log::Any" if $args{log};
+        $extra_modules->{'Log::Any'} = 0 if $args{log};
 
         $code = join(
             "",

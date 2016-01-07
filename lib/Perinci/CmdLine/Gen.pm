@@ -346,6 +346,7 @@ sub gen_pericmd_script {
             "use 5.010001;\n",
             "use strict;\n",
             "use warnings;\n",
+            ($args{log} ? "use Log::Any;\n" : ""),
             "\n",
 
             ($args{load_module} && @{$args{load_module}} ?

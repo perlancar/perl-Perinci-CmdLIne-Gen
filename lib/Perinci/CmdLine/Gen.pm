@@ -408,7 +408,7 @@ sub gen_pericmd_script {
     } # END generate code
 
     if ($output_file ne '-') {
-        $log->trace("Outputing result to %s ...", $output_file);
+        $log->tracef("Outputing result to %s ...", $output_file);
         if ((-f $output_file) && !$args{overwrite}) {
             return [409, "Output file '$output_file' already exists (please use --overwrite if you want to override)"];
         }

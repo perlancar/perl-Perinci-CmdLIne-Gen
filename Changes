@@ -1,5 +1,12 @@
 Revision history for Perinci-CmdLine-Gen
 
+0.28    2016-01-14 (PERLANCAR)
+
+	- Add option: use_utf8.
+
+	- Fix logging statement.
+
+
 0.27    2016-01-07 (PERLANCAR)
 
 	- Correct version number.

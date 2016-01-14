@@ -211,6 +211,10 @@ _
             summary => 'Assume that function returns raw text which needs no formatting',
             schema  => 'bool',
         },
+        use_utf8 => {
+            summary => 'Whether to set utf8 flag on output, will be passed to Perinci::CmdLine constructor',
+            schema  => 'bool',
+        },
     },
 };
 sub gen_pericmd_script {
@@ -331,13 +335,20 @@ sub gen_pericmd_script {
             # env_name => $args{env_name}, # currently unsupported
             shebang => $args{interpreter_path},
             skip_format => $args{skip_format} ? 1:0,
+            (use_utf8 => $args{use_utf8} ? 1:0) x !!(defined $args{use_utf8}),
         );
         return $res if $res->[0] != 200;
         $code = $res->[2];
     } else {
         $extra_modules->{'Log::Any'} = 0 if $args{log};
         # determine minimum required version
-        if ($args{config_filename} && ref($args{config_filename}) eq 'ARRAY' && @{$args{config_filename}} > 1) {
+        if (defined $args{use_utf8} && $cmdline_mod =~ /\APerinci::CmdLine::(Lite|Any)\z/) {
+            if ($cmdline_mod eq 'Perinci::CmdLine::Lite') {
+                $cmdline_mod_ver = "1.45";
+            } else {
+                $extra_modules->{"Perinci::CmdLine::Base"} = "1.45";
+            }
+        } elsif ($args{config_filename} && ref($args{config_filename}) eq 'ARRAY' && @{$args{config_filename}} > 1) {
             # multiple values in config_filenames requires Perinci::CmdLine::Base 1.45
             if ($cmdline_mod eq 'Perinci::CmdLine::Lite') {
                 $cmdline_mod_ver = "1.44";
@@ -392,6 +403,7 @@ sub gen_pericmd_script {
             (defined($args{read_env})    ? "    read_env => " . ($args{read_env} ? 1:0) . ",\n" : ""),
             (defined($args{env_name})    ? "    env_name => " . dump($args{env_name}) . ",\n" : ""),
             ($args{skip_format} ? "    skip_format => 1,\n" : ""),
+            (defined($args{use_utf8}) ? "    use_utf8 => " . dump($args{use_utf8}) . ",\n" : ""),
             ")->run;\n",
             "\n",
         );

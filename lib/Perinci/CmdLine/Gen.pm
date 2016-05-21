@@ -339,6 +339,9 @@ sub gen_pericmd_script {
         );
         return $res if $res->[0] != 200;
         $code = $res->[2];
+        for (keys %{ $res->[3]{'func.raw_result'}{req_modules} }) {
+            $extra_modules->{$_} = $res->[3]{'func.raw_result'}{req_modules}{$_};
+        }
     } else {
         $extra_modules->{'Log::Any'} = 0 if $args{log};
         # determine minimum required version

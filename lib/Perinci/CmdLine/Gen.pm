@@ -343,6 +343,7 @@ sub gen_pericmd_script {
         $extra_modules->{'Log::Any'} = 0 if $args{log};
         # determine minimum required version
         if (defined $args{use_utf8} && $cmdline_mod =~ /\APerinci::CmdLine::(Lite|Any)\z/) {
+            if ($cmdline_mod eq 'Perinci::CmdLine::Lite') {
                 $cmdline_mod_ver = "1.45";
             } else {
                 $extra_modules->{"Perinci::CmdLine::Lite"} = "1.45";
@@ -456,8 +457,11 @@ sub gen_pericmd_script {
 }
 
 # alias
-*gen_perinci_cmdline_script = \&gen_pericmd_script;
-$SPEC{gen_perinci_cmdline_script} = $SPEC{gen_pericmd_script};
+{
+    no warnings 'once';
+    *gen_perinci_cmdline_script = \&gen_pericmd_script;
+    $SPEC{gen_perinci_cmdline_script} = $SPEC{gen_pericmd_script};
+}
 
 1;
 # ABSTRACT:

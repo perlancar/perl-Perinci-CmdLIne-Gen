@@ -1,5 +1,12 @@
 Revision history for Perinci-CmdLine-Gen
 
+0.29    2016-05-21 (PERLANCAR)
+
+	- No functional changes.
+
+	- Bump prereq version Perinci::CmdLine::Inline to 0.38.
+
+
 0.28    2016-01-14 (PERLANCAR)
 
 	- Add option: use_utf8.

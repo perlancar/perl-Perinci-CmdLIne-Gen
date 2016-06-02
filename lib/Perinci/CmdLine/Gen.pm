@@ -193,6 +193,20 @@ _
             schema => ['array', of=>'str*'],
             'x.schema.element_entity' => 'modulename',
         },
+        allow_prereq => {
+            summary => 'Allow script to depend on these modules',
+            schema => ['array', of=>'str*'],
+            description => <<'_',
+
+Sometimes, as in the case of using `Perinci::CmdLine::Inline`, dependency to
+some modules (e.g. non-core XS modules) are prohibited because the goal is to
+have a free-standing script. This option allows whitelisting some extra modules.
+
+If you use `Perinci::CmdLine::Inline`, this option will be passed to it.
+
+_
+            'x.schema.element_entity' => 'modulename',
+        },
         interpreter_path => {
             summary => 'What to put on shebang line',
             schema => 'str',
@@ -336,6 +350,7 @@ sub gen_pericmd_script {
             shebang => $args{interpreter_path},
             skip_format => $args{skip_format} ? 1:0,
             (use_utf8 => $args{use_utf8} ? 1:0) x !!(defined $args{use_utf8}),
+            (allow_prereq => $args{allow_prereq}) x !!$args{allow_prereq},
         );
         return $res if $res->[0] != 200;
         $code = $res->[2];

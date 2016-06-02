@@ -1,5 +1,10 @@
 Revision history for Perinci-CmdLine-Gen
 
+0.31    2016-06-02 (PERLANCAR)
+
+        - Add option: allow_prereq (passed to Perinci::CmdLine::Inline).
+
+
 0.30    2016-05-21 (PERLANCAR)
 
 	- [Bugfix] Forgot to pass req_modules from Perinci::CmdLine::Inline

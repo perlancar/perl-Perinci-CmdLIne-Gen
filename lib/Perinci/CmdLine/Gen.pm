@@ -172,7 +172,11 @@ _
         },
         config_filename => {
             summary => 'Will be passed to Perinci::CmdLine constructor',
-            schema => ['any*', of=>['str*', ['array*', of=>'str*']]],
+            schema => ['any*', of=>[
+                'str*',
+                'hash*',
+                ['array*', of=>['any*', of=>['str*','hash*']]],
+            ]],
         },
         config_dirs => {
             summary => 'Will be passed to Perinci::CmdLine constructor',

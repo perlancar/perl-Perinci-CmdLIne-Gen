@@ -232,6 +232,15 @@ _
             summary => 'Whether to set utf8 flag on output, will be passed to Perinci::CmdLine constructor',
             schema  => 'bool',
         },
+        per_arg_json => {
+            summary => 'Will be passed to Perinci::CmdLine constructor',
+            schema => ['bool*'],
+        },
+        per_arg_yaml => {
+            summary => 'Will be passed to Perinci::CmdLine constructor',
+            'x.name.is_plural' => 1,
+            schema => ['bool*'],
+        },
     },
 };
 sub gen_pericmd_script {
@@ -354,6 +363,8 @@ sub gen_pericmd_script {
             skip_format => $args{skip_format} ? 1:0,
             (use_utf8 => $args{use_utf8} ? 1:0) x !!(defined $args{use_utf8}),
             (allow_prereq => $args{allow_prereq}) x !!$args{allow_prereq},
+            (per_arg_json => $args{per_arg_json} ? 1:0) x !!(defined $args{per_arg_json}),
+            (per_arg_yaml => $args{per_arg_yaml} ? 1:0) x !!(defined $args{per_arg_yaml}),
         );
         return $res if $res->[0] != 200;
         $code = $res->[2];
@@ -425,6 +436,8 @@ sub gen_pericmd_script {
             (defined($args{env_name})    ? "    env_name => " . dump($args{env_name}) . ",\n" : ""),
             ($args{skip_format} ? "    skip_format => 1,\n" : ""),
             (defined($args{use_utf8}) ? "    use_utf8 => " . dump($args{use_utf8}) . ",\n" : ""),
+            (defined($args{per_arg_json}) ? "    per_arg_json => " . dump($args{per_arg_json}) . ",\n" : ""),
+            (defined($args{per_arg_yaml}) ? "    per_arg_yaml => " . dump($args{per_arg_yaml}) . ",\n" : ""),
             ")->run;\n",
             "\n",
         );

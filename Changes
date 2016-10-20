@@ -1,5 +1,11 @@
 Revision history for Perinci-CmdLine-Gen
 
+0.34    2016-10-20 (PERLANCAR)
+
+	- Bump prereq version of Perinci::CmdLine::Base (::Lite) from 1.44 to
+          1.56.
+
+
 0.33    2016-09-25 (PERLANCAR)
 
 	- Add options: per_arg_json, per_arg_yaml.

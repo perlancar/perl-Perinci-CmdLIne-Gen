@@ -224,6 +224,10 @@ _
             summary => 'Use this for version number instead',
             schema => 'str',
         },
+        default_format => {
+            summary => 'Set default format',
+            schema  => 'str',
+        },
         skip_format => {
             summary => 'Assume that function returns raw text which needs no formatting',
             schema  => 'bool',
@@ -360,6 +364,7 @@ sub gen_pericmd_script {
             # read_env => $args{read_env}, # currently unsupported
             # env_name => $args{env_name}, # currently unsupported
             shebang => $args{interpreter_path},
+            #(default_format => $args{default_format}) x !!$args{default_format), # not yet
             skip_format => $args{skip_format} ? 1:0,
             (use_utf8 => $args{use_utf8} ? 1:0) x !!(defined $args{use_utf8}),
             (allow_prereq => $args{allow_prereq}) x !!$args{allow_prereq},
@@ -376,15 +381,15 @@ sub gen_pericmd_script {
         # determine minimum required version
         if (defined $args{use_utf8} && $cmdline_mod =~ /\APerinci::CmdLine::(Lite|Any)\z/) {
             if ($cmdline_mod eq 'Perinci::CmdLine::Lite') {
-                $cmdline_mod_ver = "1.56";
+                $cmdline_mod_ver = "1.63";
             } else {
-                $extra_modules->{"Perinci::CmdLine::Lite"} = "1.56";
+                $extra_modules->{"Perinci::CmdLine::Lite"} = "1.63";
             }
         } elsif ($args{config_filename} && ref($args{config_filename}) eq 'ARRAY' && @{$args{config_filename}} > 1) {
             if ($cmdline_mod eq 'Perinci::CmdLine::Lite') {
-                $cmdline_mod_ver = "1.56";
+                $cmdline_mod_ver = "1.63";
             } else {
-                $extra_modules->{'Perinci::CmdLine::Base'} = "1.56";
+                $extra_modules->{'Perinci::CmdLine::Base'} = "1.63";
             }
         }
 
@@ -433,6 +438,7 @@ sub gen_pericmd_script {
             (defined($args{config_dirs}) ? "    config_dirs => " . dump($args{config_dirs}) . ",\n" : ""),
             (defined($args{read_env})    ? "    read_env => " . ($args{read_env} ? 1:0) . ",\n" : ""),
             (defined($args{env_name})    ? "    env_name => " . dump($args{env_name}) . ",\n" : ""),
+            ($args{default_format} ? "    default_format => " . dump($args{default_format}) . ",\n" : ""),
             ($args{skip_format} ? "    skip_format => 1,\n" : ""),
             (defined($args{use_utf8}) ? "    use_utf8 => " . dump($args{use_utf8}) . ",\n" : ""),
             (defined($args{per_arg_json}) ? "    per_arg_json => " . dump($args{per_arg_json}) . ",\n" : ""),

@@ -1,5 +1,10 @@
 Revision history for Perinci-CmdLine-Gen
 
+0.35    2016-10-27 (PERLANCAR)
+
+        - Add default_format option.
+
+
 0.34    2016-10-20 (PERLANCAR)
 
 	- Bump prereq version of Perinci::CmdLine::Base (::Lite) from 1.44 to

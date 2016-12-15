@@ -236,6 +236,10 @@ _
             summary => 'Whether to set utf8 flag on output, will be passed to Perinci::CmdLine constructor',
             schema  => 'bool',
         },
+        default_dry_run => {
+            summary => 'Whether to set default_dry_run, will be passed to Perinci::CmdLine constructor',
+            schema  => 'bool',
+        },
         per_arg_json => {
             summary => 'Will be passed to Perinci::CmdLine constructor',
             schema => ['bool*'],
@@ -367,6 +371,7 @@ sub gen_pericmd_script {
             #(default_format => $args{default_format}) x !!$args{default_format), # not yet
             skip_format => $args{skip_format} ? 1:0,
             (use_utf8 => $args{use_utf8} ? 1:0) x !!(defined $args{use_utf8}),
+            (default_dry_run => $args{default_dry_run} ? 1:0) x !!(defined $args{default_dry_run}),
             (allow_prereq => $args{allow_prereq}) x !!$args{allow_prereq},
             (per_arg_json => $args{per_arg_json} ? 1:0) x !!(defined $args{per_arg_json}),
             (per_arg_yaml => $args{per_arg_yaml} ? 1:0) x !!(defined $args{per_arg_yaml}),

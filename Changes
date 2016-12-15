@@ -1,5 +1,10 @@
 Revision history for Perinci-CmdLine-Gen
 
+0.37    2016-12-15 (PERLANCAR)
+
+	- [Bugfix] Forgot to set default_dry_run in one instance, derp.
+
+
 0.36    2016-12-15 (PERLANCAR)
 
         - Add default_dry_run option (Perinci::CmdLine 1.65+).

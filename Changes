@@ -1,5 +1,11 @@
 Revision history for Perinci-CmdLine-Gen
 
+0.38    2016-12-15 (PERLANCAR)
+
+	- [Bugfix] Fix setting default log level which works with
+	  Perinci::CmdLine::Lite as well as ::Classic.
+
+
 0.37    2016-12-15 (PERLANCAR)
 
 	- [Bugfix] Forgot to set default_dry_run in one instance, derp.

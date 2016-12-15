@@ -418,7 +418,7 @@ sub gen_pericmd_script {
                  join("", map {"use $_;\n"} @{$args{load_module}})."\n" : ""),
 
             ($args{default_log_level} ?
-                 "BEGIN { no warnings; \$main::Log_Level = '$args{default_log_level}'; }\n\n" : ""),
+                 "BEGIN { no warnings; \$ENV{LOG_LEVEL} //= '$args{default_log_level}'; }\n\n" : ""),
 
             "use $cmdline_mod",
             ($cmdline_mod eq 'Perinci::CmdLine::Any' &&

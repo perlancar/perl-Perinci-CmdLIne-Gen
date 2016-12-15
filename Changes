@@ -1,5 +1,14 @@
 Revision history for Perinci-CmdLine-Gen
 
+0.39    2016-12-15 (PERLANCAR)
+
+	- No functional changes.
+
+	- Bump generated prereq version Perinci::CmdLine::{Lite,Base} to
+	  1.66 (observes default dry-run in 'dry_run' feature property in
+	  Rinci metadata, Rinci 1.1.83).
+
+
 0.38    2016-12-15 (PERLANCAR)
 
 	- [Bugfix] Fix setting default log level which works with

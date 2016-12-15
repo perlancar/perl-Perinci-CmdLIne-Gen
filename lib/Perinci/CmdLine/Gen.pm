@@ -446,6 +446,7 @@ sub gen_pericmd_script {
             ($args{default_format} ? "    default_format => " . dump($args{default_format}) . ",\n" : ""),
             ($args{skip_format} ? "    skip_format => 1,\n" : ""),
             (defined($args{use_utf8}) ? "    use_utf8 => " . dump($args{use_utf8}) . ",\n" : ""),
+            (defined($args{default_dry_run}) ? "    default_dry_run => " . dump($args{default_dry_run}) . ",\n" : ""),
             (defined($args{per_arg_json}) ? "    per_arg_json => " . dump($args{per_arg_json}) . ",\n" : ""),
             (defined($args{per_arg_yaml}) ? "    per_arg_yaml => " . dump($args{per_arg_yaml}) . ",\n" : ""),
             ")->run;\n",

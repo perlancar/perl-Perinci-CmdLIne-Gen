@@ -1,5 +1,11 @@
 Revision history for Perinci-CmdLine-Gen
 
+0.40    2017-01-04 (PERLANCAR)
+
+	- [Incompatible change] Make 'subcommands' argument a hash instead
+	  of array.
+
+
 0.39    2016-12-15 (PERLANCAR)
 
 	- No functional changes.

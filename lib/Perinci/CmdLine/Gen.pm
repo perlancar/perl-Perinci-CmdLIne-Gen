@@ -65,20 +65,20 @@ $SPEC{gen_pericmd_script} = {
         },
         subcommands => {
             'x.name.is_plural' => 1,
-            summary => 'List of subcommand entries, where each entry is "name:url"',
-            'summary.alt.plurality.singular' => 'Subcommand name followed by colon and function URL',
+            summary => 'Hash of subcommand entries, where each entry is "url[:summary]"',
+            'summary.alt.plurality.singular' => 'Subcommand name with function URL and optional summary',
+            schema => ['hash*', of=>'str*'],
             description => <<'_',
 
-Optionally, it can be additionally followed by a summary, so:
+An optional summary can follow the URL, e.g.:
 
-    NAME:URL[:SUMMARY]
+    URL[:SUMMARY]
 
 Example (on CLI):
 
-    --subcommand "delete:/My/App/delete_item:Delete an item"
+    --subcommand add=/My/App/add_item --subcommand bin='/My/App/bin_item:Delete an item'
 
 _
-            schema => ['array*', of=>'str*'],
             cmdline_aliases => { s=>{} },
         },
         subcommands_from_package_functions => {
@@ -86,7 +86,7 @@ _
             schema => ['bool', is=>1],
             description => <<'_',
 
-This is an alternative to the `subcommand` option. Instead of specifying each
+This is an alternative to the `subcommands` option. Instead of specifying each
 subcommand's name and URL, you can also specify that subcommand names are from
 functions under the package URL in `url`. So for example if `url` is `/My/App/`,
 hen all functions under `/My/App` are listed first. If the functions are:
@@ -289,13 +289,13 @@ sub gen_pericmd_script {
     }
 
     my $subcommands;
-    if ($args{subcommands} && @{ $args{subcommands} }) {
+    if ($args{subcommands} && keys %{$args{subcommands}}) {
         $subcommands = {};
-        for (@{ $args{subcommands} }) {
-            my ($sc_name, $sc_url, $sc_summary) = split /:/, $_, 3;
+        for my $sc_name (keys %{ $args{subcommands} }) {
+            my ($sc_url, $sc_summary) = split /:/, $args{subcommands}{$sc_name}, 2;
             $subcommands->{$sc_name} = {
                 url => $sc_url,
-                summary => $sc_summary,
+                (summary => $sc_summary) x !!(defined $sc_summary && length $sc_summary),
             };
         }
     } elsif ($args{subcommands_from_package_functions}) {
@@ -315,7 +315,7 @@ sub gen_pericmd_script {
             (my $sc_name = $uri) =~ s/_/-/g;
             $subcommands->{$sc_name} = {
                 url     => "$args{url}$uri",
-                summary => $meta->{summary},
+                (summary => $meta->{summary}) x !!(defined $meta->{summary}),
             };
         }
     }

@@ -45,11 +45,10 @@ $SPEC{gen_pericmd_script} = {
 
         output_file => {
             summary => 'Path to output file',
-            schema => ['str*'],
+            schema => ['filename*'],
             default => '-',
             cmdline_aliases => { o=>{} },
             tags => ['category:output'],
-            'x.schema.entity' => 'filename',
         },
         overwrite => {
             schema => [bool => default => 0],
@@ -125,9 +124,8 @@ _
         },
         cmdline => {
             summary => 'Specify module to use',
-            schema  => 'str',
+            schema  => 'perl::modname*',
             default => 'Perinci::CmdLine::Any',
-            'x.schema.entity' => 'modulename',
         },
         prefer_lite => {
             summary => 'Prefer Perinci::CmdLine::Lite backend',
@@ -143,6 +141,17 @@ Currently irrelevant when generating with Perinci::CmdLine::Inline.
 
 _
             schema  => 'bool',
+        },
+        pack_deps => {
+            summary => 'Whether to pack dependencies in Perinci::CmdLine::Inline script',
+            schema => 'bool*',
+            description => <<'_',
+
+Will be passed to <pm:Perinci::CmdLine>'s `gen_inline_pericmd_script`'s
+`pack_deps` option.
+
+_
+            tags => ['variant:inline'],
         },
         log => {
             summary => 'Will be passed to Perinci::CmdLine constructor',
@@ -193,12 +202,11 @@ _
         },
         load_module => {
             summary => 'Load extra modules',
-            schema => ['array', of=>'str*'],
-            'x.schema.element_entity' => 'modulename',
+            schema => ['array', of=>'perl::modname*'],
         },
         allow_prereq => {
             summary => 'Allow script to depend on these modules',
-            schema => ['array', of=>'str*'],
+            schema => ['array*', of=>'perl::modname*'],
             description => <<'_',
 
 Sometimes, as in the case of using `Perinci::CmdLine::Inline`, dependency to
@@ -208,7 +216,7 @@ have a free-standing script. This option allows whitelisting some extra modules.
 If you use `Perinci::CmdLine::Inline`, this option will be passed to it.
 
 _
-            'x.schema.element_entity' => 'modulename',
+            tags => ['variant:inline'],
         },
         interpreter_path => {
             summary => 'What to put on shebang line',
@@ -375,6 +383,7 @@ sub gen_pericmd_script {
             (allow_prereq => $args{allow_prereq}) x !!$args{allow_prereq},
             (per_arg_json => $args{per_arg_json} ? 1:0) x !!(defined $args{per_arg_json}),
             (per_arg_yaml => $args{per_arg_yaml} ? 1:0) x !!(defined $args{per_arg_yaml}),
+            (pack_deps => $args{pack_deps}) x !!(defined $args{pack_deps}),
         );
         return $res if $res->[0] != 200;
         $code = $res->[2];

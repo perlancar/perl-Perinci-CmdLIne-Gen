@@ -188,8 +188,9 @@ _
             ]],
         },
         config_dirs => {
-            summary => 'Will be passed to Perinci::CmdLine constructor',
             'x.name.is_plural' => 1,
+            'x.name.singular' => 'config_dir',
+            summary => 'Will be passed to Perinci::CmdLine constructor',
             schema => ['array*', of=>'str*'],
         },
         read_env => {
@@ -254,7 +255,10 @@ _
         },
         per_arg_yaml => {
             summary => 'Will be passed to Perinci::CmdLine constructor',
-            'x.name.is_plural' => 1,
+            schema => ['bool*'],
+        },
+        validate_args => {
+            summary => 'Will be passed to Perinci::CmdLine constructor',
             schema => ['bool*'],
         },
     },
@@ -384,6 +388,7 @@ sub gen_pericmd_script {
             (per_arg_json => $args{per_arg_json} ? 1:0) x !!(defined $args{per_arg_json}),
             (per_arg_yaml => $args{per_arg_yaml} ? 1:0) x !!(defined $args{per_arg_yaml}),
             (pack_deps => $args{pack_deps}) x !!(defined $args{pack_deps}),
+            (validate_args => $args{validate_args}) x !!(defined $args{validate_args}),
         );
         return $res if $res->[0] != 200;
         $code = $res->[2];
@@ -452,6 +457,7 @@ sub gen_pericmd_script {
             (defined($args{default_dry_run}) ? "    default_dry_run => " . dump($args{default_dry_run}) . ",\n" : ""),
             (defined($args{per_arg_json}) ? "    per_arg_json => " . dump($args{per_arg_json}) . ",\n" : ""),
             (defined($args{per_arg_yaml}) ? "    per_arg_yaml => " . dump($args{per_arg_yaml}) . ",\n" : ""),
+            (defined($args{validate_args}) ? "    validate_args => " . dump($args{validate_args}) . ",\n" : ""),
             ")->run;\n",
             "\n",
         );

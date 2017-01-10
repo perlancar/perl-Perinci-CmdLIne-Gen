@@ -261,6 +261,17 @@ _
             summary => 'Will be passed to Perinci::CmdLine constructor',
             schema => ['bool*'],
         },
+
+        pod => {
+            summary => 'Whether to generate POD or not',
+            schema => ['bool*'],
+            description => <<'_',
+
+Currently only Perinci::CmdLine::Inline generates POD.
+
+_
+            default => 1,
+        },
     },
 };
 sub gen_pericmd_script {
@@ -389,6 +400,7 @@ sub gen_pericmd_script {
             (per_arg_yaml => $args{per_arg_yaml} ? 1:0) x !!(defined $args{per_arg_yaml}),
             (pack_deps => $args{pack_deps}) x !!(defined $args{pack_deps}),
             (validate_args => $args{validate_args}) x !!(defined $args{validate_args}),
+            (pod => $args{pod}) x !!(defined $args{pod}),
         );
         return $res if $res->[0] != 200;
         $code = $res->[2];

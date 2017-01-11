@@ -1,3 +1,8 @@
+0.42    2017-01-11 (PERLANCAR)
+
+	- Add option: --(no-)pod.
+
+
 0.41    2017-01-06 (PERLANCAR)
 
 	- Add options: validate_args, pack_deps.

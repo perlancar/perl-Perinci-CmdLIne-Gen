@@ -126,6 +126,12 @@ _
             summary => 'Specify module to use',
             schema  => 'perl::modname*',
             default => 'Perinci::CmdLine::Any',
+            completion => ['classic', 'inline', 'lite'],
+            cmdline_aliases => {
+                classic => { code=>sub{ $_[0]{cmdline} = 'classic' }, is_flag=>1, summary => 'Shortcut for --cmdline=classic' },
+                inline  => { code=>sub{ $_[0]{cmdline} = 'inline'  }, is_flag=>1, summary => 'Shortcut for --cmdline=inline'  },
+                lite    => { code=>sub{ $_[0]{cmdline} = 'lite'    }, is_flag=>1, summary => 'Shortcut for --cmdline=lite'    },
+            },
         },
         prefer_lite => {
             summary => 'Prefer Perinci::CmdLine::Lite backend',

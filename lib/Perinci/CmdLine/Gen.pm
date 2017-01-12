@@ -397,7 +397,7 @@ sub gen_pericmd_script {
             read_env => $args{read_env},
             env_name => $args{env_name},
             shebang => $args{interpreter_path},
-            (default_format => $args{default_format}) x !!$args{default_format),
+            (default_format => $args{default_format}) x !!$args{default_format},
             skip_format => $args{skip_format} ? 1:0,
             (use_utf8 => $args{use_utf8} ? 1:0) x !!(defined $args{use_utf8}),
             (default_dry_run => $args{default_dry_run} ? 1:0) x !!(defined $args{default_dry_run}),

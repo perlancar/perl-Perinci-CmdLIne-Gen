@@ -247,6 +247,10 @@ _
             summary => 'Assume that function returns raw text which needs no formatting',
             schema  => 'bool',
         },
+        use_cleanser => {
+            summary => 'Whether to use data cleansing before outputting to JSON',
+            schema  => 'bool',
+        },
         use_utf8 => {
             summary => 'Whether to set utf8 flag on output, will be passed to Perinci::CmdLine constructor',
             schema  => 'bool',
@@ -399,6 +403,7 @@ sub gen_pericmd_script {
             shebang => $args{interpreter_path},
             (default_format => $args{default_format}) x !!$args{default_format},
             skip_format => $args{skip_format} ? 1:0,
+            (use_cleanser => $args{use_cleanser} ? 1:0) x !!(defined $args{use_cleanser}),
             (use_utf8 => $args{use_utf8} ? 1:0) x !!(defined $args{use_utf8}),
             (default_dry_run => $args{default_dry_run} ? 1:0) x !!(defined $args{default_dry_run}),
             (allow_prereq => $args{allow_prereq}) x !!$args{allow_prereq},
@@ -472,6 +477,7 @@ sub gen_pericmd_script {
             ($args{default_format} ? "    default_format => " . dump($args{default_format}) . ",\n" : ""),
             ($args{skip_format} ? "    skip_format => 1,\n" : ""),
             (defined($args{use_utf8}) ? "    use_utf8 => " . dump($args{use_utf8}) . ",\n" : ""),
+            (defined($args{use_cleanser}) ? "    use_cleanser => " . dump($args{use_cleanser}) . ",\n" : ""),
             (defined($args{default_dry_run}) ? "    default_dry_run => " . dump($args{default_dry_run}) . ",\n" : ""),
             (defined($args{per_arg_json}) ? "    per_arg_json => " . dump($args{per_arg_json}) . ",\n" : ""),
             (defined($args{per_arg_yaml}) ? "    per_arg_yaml => " . dump($args{per_arg_yaml}) . ",\n" : ""),

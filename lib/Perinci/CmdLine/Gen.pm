@@ -423,9 +423,9 @@ sub gen_pericmd_script {
         # determine minimum required version
         if ($cmdline_mod =~ /\APerinci::CmdLine::(Lite|Any)\z/) {
             if ($cmdline_mod eq 'Perinci::CmdLine::Lite') {
-                $cmdline_mod_ver = "1.66";
+                $cmdline_mod_ver = "1.72";
             } else {
-                $extra_modules->{"Perinci::CmdLine::Base"} = "1.66";
+                $extra_modules->{"Perinci::CmdLine::Base"} = "1.72";
             }
         }
 

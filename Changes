@@ -1,3 +1,8 @@
+0.45    2017-01-29 (PERLANCAR)
+
+	- Bump Perinci::CmdLine::{Lite,Base} version.
+
+
 0.44    2017-01-16 (PERLANCAR)
 
 	- Add option --use-cleanser.

@@ -1,3 +1,8 @@
+0.45_001 2017-06-19 (PERLANCAR)
+
+        - Replace Log::Any with Log::ger.
+
+
 0.45    2017-01-29 (PERLANCAR)
 
 	- Bump Perinci::CmdLine::{Lite,Base} version.

@@ -6,7 +6,7 @@ package Perinci::CmdLine::Gen;
 use 5.010001;
 use strict;
 use warnings;
-use Log::Any::IfLOG '$log';
+use Log::ger;
 
 use Data::Dump qw(dump);
 use File::Which;
@@ -419,7 +419,7 @@ sub gen_pericmd_script {
             $extra_modules->{$_} = $res->[3]{'func.raw_result'}{req_modules}{$_};
         }
     } else {
-        $extra_modules->{'Log::Any'} = 0 if $args{log};
+        $extra_modules->{'Log::ger'} = 0 if $args{log};
         # determine minimum required version
         if ($cmdline_mod =~ /\APerinci::CmdLine::(Lite|Any)\z/) {
             if ($cmdline_mod eq 'Perinci::CmdLine::Lite') {
@@ -442,7 +442,7 @@ sub gen_pericmd_script {
             "use 5.010001;\n",
             "use strict;\n",
             "use warnings;\n",
-            ($args{log} ? "use Log::Any;\n" : ""),
+            ($args{log} ? "use Log::ger;\n" : ""),
             "\n",
 
             ($args{load_module} && @{$args{load_module}} ?
@@ -498,7 +498,7 @@ sub gen_pericmd_script {
     } # END generate code
 
     if ($output_file ne '-') {
-        $log->tracef("Outputing result to %s ...", $output_file);
+        log_trace("Outputing result to %s ...", $output_file);
         if ((-f $output_file) && !$args{overwrite}) {
             return [409, "Output file '$output_file' already exists (please use --overwrite if you want to override)"];
         }
@@ -510,15 +510,15 @@ sub gen_pericmd_script {
             or return [500, "Can't write '$output_file': $!"];
 
         chmod 0755, $output_file or do {
-            $log->warn("Can't 'chmod 0755, $output_file': $!");
+            log_warn("Can't 'chmod 0755, $output_file': $!");
         };
 
         my $output_name = $output_file;
         $output_name =~ s!.+[\\/]!!;
 
         if (which("shcompgen") && which($output_name)) {
-            $log->trace("We have shcompgen in PATH and output ".
-                            "$output_name is also in PATH, running shcompgen ...");
+            log_trace("We have shcompgen in PATH and output ".
+                          "$output_name is also in PATH, running shcompgen ...");
             system "shcompgen", "generate", $output_name;
         }
 

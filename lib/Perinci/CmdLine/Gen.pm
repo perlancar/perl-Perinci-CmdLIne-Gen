@@ -383,7 +383,7 @@ sub gen_pericmd_script {
         require Perinci::CmdLine::Inline;
         $cmdline_mod_ver = $Perinci::CmdLine::Inline::VERSION;
         my $res = Perinci::CmdLine::Inline::gen_inline_pericmd_script(
-            url => $args{url},
+            url => "$args{url}",
             script_name => $args{script_name},
             script_summary => $args{script_summary},
             script_version => $args{script_version},
@@ -462,7 +462,7 @@ sub gen_pericmd_script {
             ($args{code_before_instantiate_cmdline} ? "# code_before_instantiate_cmdline\n" . $args{code_before_instantiate_cmdline} . "\n\n" : ""),
 
             "$cmdline_mod->new(\n",
-            "    url => ", dump($args{url}), ",\n",
+            "    url => ", dump("$args{url}"), ",\n",
             (defined($subcommands) ? "    subcommands => " . indent("    ", dump($subcommands), {first_line_indent=>""}) . ",\n" : ""),
             "    program_name => " . dump($script_name) . ",\n",
             (defined($args{default_subcommand}) ? "    default_subcommand => " . dump($args{default_subcommand}) . ",\n" : ""),

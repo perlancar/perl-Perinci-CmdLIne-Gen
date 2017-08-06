@@ -419,7 +419,7 @@ sub gen_pericmd_script {
             $extra_modules->{$_} = $res->[3]{'func.raw_result'}{req_modules}{$_};
         }
     } else {
-        $extra_modules->{'Log::ger'} = 0 if $args{log};
+        $extra_modules->{'Log::ger'} = '0.023' if $args{log};
         # determine minimum required version
         if ($cmdline_mod =~ /\APerinci::CmdLine::(Lite|Any)\z/) {
             if ($cmdline_mod eq 'Perinci::CmdLine::Lite') {

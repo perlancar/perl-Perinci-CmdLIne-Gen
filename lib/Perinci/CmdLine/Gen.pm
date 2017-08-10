@@ -448,9 +448,6 @@ sub gen_pericmd_script {
             ($args{load_module} && @{$args{load_module}} ?
                  join("", map {"use $_;\n"} @{$args{load_module}})."\n" : ""),
 
-            ($args{default_log_level} ?
-                 "BEGIN { no warnings; \$ENV{LOG_LEVEL} //= '$args{default_log_level}'; }\n\n" : ""),
-
             "use $cmdline_mod",
             ($cmdline_mod eq 'Perinci::CmdLine::Any' &&
                  defined($args{prefer_lite}) && !$args{prefer_lite} ? " -prefer_lite=>0" : ""),
@@ -467,6 +464,7 @@ sub gen_pericmd_script {
             "    program_name => " . dump($script_name) . ",\n",
             (defined($args{default_subcommand}) ? "    default_subcommand => " . dump($args{default_subcommand}) . ",\n" : ""),
             (defined($args{log}) ? "    log => " . dump($args{log}) . ",\n" : ""),
+            ($args{default_log_level} ? "    log_level => " . dump($args{default_log_level}) . ",\n" : ""),
             (defined($args{pass_cmdline_object}) ? "    pass_cmdline_object => " . dump($args{pass_cmdline_object}) . ",\n" : ""),
             (defined($args{extra_urls_for_version}) ? "    extra_urls_for_version => " . dump($args{extra_urls_for_version}) . ",\n" : ""),
             (defined($args{read_config}) ? "    read_config => " . ($args{read_config} ? 1:0) . ",\n" : ""),

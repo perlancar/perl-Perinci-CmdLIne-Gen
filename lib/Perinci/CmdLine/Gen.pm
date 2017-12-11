@@ -368,7 +368,7 @@ sub gen_pericmd_script {
 
     my $gen_sig = join(
         "",
-        "# Note: This script is a CLI ",
+        "# Note: This script is a CLI",
         ($meta->{args} ? " for Riap function $args{url}" : ""), # a quick hack to guess meta is func metadata (XXX should've done an info Riap request)
         "\n",
         "# and generated automatically using ", __PACKAGE__,

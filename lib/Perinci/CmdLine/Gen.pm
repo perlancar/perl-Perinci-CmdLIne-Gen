@@ -282,6 +282,21 @@ Currently only Perinci::CmdLine::Inline generates POD.
 _
             default => 1,
         },
+
+        copt_version_enable => {
+            schema => 'bool*',
+            default => 1,
+        },
+        copt_version_getopt => {
+            schema => 'str*',
+        },
+        copt_help_enable => {
+            schema => 'bool*',
+            default => 1,
+        },
+        copt_help_getopt => {
+            schema => 'str*',
+        },
     },
 };
 sub gen_pericmd_script {
@@ -291,6 +306,8 @@ sub gen_pericmd_script {
 
     # XXX schema
     $args{ssl_verify_hostname} //= 1;
+    $args{copt_version_enable} //= 1;
+    $args{copt_help_enable}    //= 1;
 
     my $output_file = $args{output_file};
 
@@ -458,7 +475,7 @@ sub gen_pericmd_script {
 
             ($args{code_before_instantiate_cmdline} ? "# code_before_instantiate_cmdline\n" . $args{code_before_instantiate_cmdline} . "\n\n" : ""),
 
-            "$cmdline_mod->new(\n",
+            "my \$cmdline = $cmdline_mod->new(\n",
             "    url => ", dump("$args{url}"), ",\n",
             (defined($subcommands) ? "    subcommands => " . indent("    ", dump($subcommands), {first_line_indent=>""}) . ",\n" : ""),
             "    program_name => " . dump($script_name) . ",\n",
@@ -480,7 +497,15 @@ sub gen_pericmd_script {
             (defined($args{per_arg_json}) ? "    per_arg_json => " . dump($args{per_arg_json}) . ",\n" : ""),
             (defined($args{per_arg_yaml}) ? "    per_arg_yaml => " . dump($args{per_arg_yaml}) . ",\n" : ""),
             (defined($args{validate_args}) ? "    validate_args => " . dump($args{validate_args}) . ",\n" : ""),
-            ")->run;\n",
+            ");\n\n",
+
+            (!$args{copt_version_enable} ? "delete \$cmdline->{common_opts}{version};\n\n" :
+                 defined($args{copt_version_getopt}) ? "\$cmdline->{common_opts}{version}{getopt} = ".dump($args{copt_version_getopt}).";\n\n" : ""),
+
+            (!$args{copt_help_enable} ? "delete \$cmdline->{common_opts}{help};\n\n" :
+                 defined($args{copt_help_getopt}) ? "\$cmdline->{common_opts}{help}{getopt} = ".dump($args{copt_help_getopt}).";\n\n" : ""),
+
+            "\$cmdline->run;\n",
             "\n",
         );
 

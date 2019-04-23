@@ -1,3 +1,10 @@
+0.490   2019-04-23 (PERLANCAR)
+
+	- [bugfix][regression] Set minimum version for
+	  Perinci::CmdLine::Classic. Also set minimum version of
+	  Perinci::CmdLine::Lite when cmdline=any.
+
+
 0.489   2019-04-23 (PERLANCAR)
 
 	- Do not add dependency to Perinci::CmdLine::Classic when

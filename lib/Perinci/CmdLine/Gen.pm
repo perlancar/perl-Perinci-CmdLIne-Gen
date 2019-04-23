@@ -443,7 +443,6 @@ sub gen_pericmd_script {
                 $cmdline_mod_ver = "1.816";
             } else {
                 $extra_modules->{"Perinci::CmdLine::Base"} = "1.816";
-                $extra_modules->{"Perinci::CmdLine::Classic"} = "1.770";
             }
         }
 

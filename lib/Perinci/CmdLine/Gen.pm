@@ -441,6 +441,8 @@ sub gen_pericmd_script {
         if ($cmdline_mod =~ /\APerinci::CmdLine::(Lite|Any)\z/) {
             if ($cmdline_mod eq 'Perinci::CmdLine::Lite') {
                 $cmdline_mod_ver = "1.816";
+            } else {
+                $extra_modules->{"Perinci::CmdLine::Lite"} = "1.816";
             }
         } elsif ($cmdline_mod =~ /\APerinci::CmdLine::Classic\z/) {
             $extra_modules->{"Perinci::CmdLine::Base"} = "1.816";

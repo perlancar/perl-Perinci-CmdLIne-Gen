@@ -455,6 +455,7 @@ sub gen_pericmd_script {
             "\n",
             $gen_sig,
             "\n",
+            "# AUTHORITY\n",
             "# DATE\n",
             "# DIST\n",
             "# VERSION\n",

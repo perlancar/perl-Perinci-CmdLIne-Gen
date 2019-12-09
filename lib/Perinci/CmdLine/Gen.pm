@@ -1,6 +1,8 @@
 package Perinci::CmdLine::Gen;
 
+# AUTHORITY
 # DATE
+# DIST
 # VERSION
 
 use 5.010001;

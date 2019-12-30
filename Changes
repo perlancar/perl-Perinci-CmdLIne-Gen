@@ -1,6 +1,9 @@
-0.492   2019-12-09  Released-By: PERLANCAR; Urgency: medium
+0.492   2019-12-09  Released-By: PERLANCAR; Urgency: medium; Broken: yes
 
 	- Add # AUTHORITY in generated script.
+
+        - UPDATE 2019-12-30: this release is broken because [Rinci::Wrap] was
+          not enabled during build. Please use 0.491 for now.
 
 
 0.491   2019-06-20  Released-By: PERLANCAR

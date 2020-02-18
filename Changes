@@ -1,3 +1,9 @@
+0.493   2020-02-18  Released-By: PERLANCAR; Urgency: medium
+
+	- [bugfix] Add workaround to disabling [Rinci::Wrap] by setting
+	  defaults to function arguments manually.
+
+
 0.492   2019-12-09  Released-By: PERLANCAR; Urgency: medium; Broken: yes
 
 	- Add # AUTHORITY in generated script.

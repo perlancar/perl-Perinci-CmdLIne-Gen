@@ -307,7 +307,11 @@ sub gen_pericmd_script {
     local $Data::Dump::INDENT = "    ";
 
     # XXX schema
+    $args{output_file} //= '-';
+    $args{cmdline} //= 'Perinci::CmdLine::Any';
+    $args{prefer_lite} //= 1;
     $args{ssl_verify_hostname} //= 1;
+    $args{pod} //= 1;
     $args{copt_version_enable} //= 1;
     $args{copt_help_enable}    //= 1;
 

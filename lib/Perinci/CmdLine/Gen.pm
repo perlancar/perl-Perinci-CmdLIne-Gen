@@ -141,6 +141,10 @@ _
             schema  => 'bool',
             default => 1,
         },
+        allow_unknown_opts => {
+            summary => 'Will be passed to Perinci::CmdLine constructor',
+            schema => 'bool',
+        },
         pass_cmdline_object => {
             summary => 'Will be passed to Perinci::CmdLine constructor',
             description => <<'_',
@@ -446,12 +450,12 @@ sub gen_pericmd_script {
         # determine minimum required version
         if ($cmdline_mod =~ /\APerinci::CmdLine::(Lite|Any)\z/) {
             if ($cmdline_mod eq 'Perinci::CmdLine::Lite') {
-                $cmdline_mod_ver = "1.820";
+                $cmdline_mod_ver = "1.827";
             } else {
-                $extra_modules->{"Perinci::CmdLine::Lite"} = "1.820";
+                $extra_modules->{"Perinci::CmdLine::Lite"} = "1.827";
             }
         } elsif ($cmdline_mod =~ /\APerinci::CmdLine::Classic\z/) {
-            $extra_modules->{"Perinci::CmdLine::Base"} = "1.820";
+            $extra_modules->{"Perinci::CmdLine::Base"} = "1.827";
             $extra_modules->{"Perinci::CmdLine::Classic"} = "1.770";
         }
 
@@ -492,6 +496,7 @@ sub gen_pericmd_script {
             (defined($args{default_subcommand}) ? "    default_subcommand => " . dump($args{default_subcommand}) . ",\n" : ""),
             (defined($args{log}) ? "    log => " . dump($args{log}) . ",\n" : ""),
             ($args{default_log_level} ? "    log_level => " . dump($args{default_log_level}) . ",\n" : ""),
+            (defined($args{allow_unknown_opts}) ? "    allow_unknown_opts => " . dump($args{allow_unknown_opts}) . ",\n" : ""),
             (defined($args{pass_cmdline_object}) ? "    pass_cmdline_object => " . dump($args{pass_cmdline_object}) . ",\n" : ""),
             (defined($args{extra_urls_for_version}) ? "    extra_urls_for_version => " . dump($args{extra_urls_for_version}) . ",\n" : ""),
             (defined($args{read_config}) ? "    read_config => " . ($args{read_config} ? 1:0) . ",\n" : ""),

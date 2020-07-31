@@ -303,6 +303,16 @@ _
         copt_help_getopt => {
             schema => 'str*',
         },
+        copt_naked_res_enable => {
+            schema => 'bool*',
+            default => 1,
+        },
+        copt_naked_res_getopt => {
+            schema => 'str*',
+        },
+        copt_naked_res_default => {
+            schema => 'bool*',
+        },
     },
 };
 sub gen_pericmd_script {
@@ -316,8 +326,9 @@ sub gen_pericmd_script {
     $args{prefer_lite} //= 1;
     $args{ssl_verify_hostname} //= 1;
     $args{pod} //= 1;
-    $args{copt_version_enable} //= 1;
-    $args{copt_help_enable}    //= 1;
+    $args{copt_version_enable}    //= 1;
+    $args{copt_help_enable}       //= 1;
+    $args{copt_naked_res_enable}  //= 1;
 
     my $output_file = $args{output_file};
 
@@ -439,6 +450,7 @@ sub gen_pericmd_script {
             (pack_deps => $args{pack_deps}) x !!(defined $args{pack_deps}),
             (validate_args => $args{validate_args}) x !!(defined $args{validate_args}),
             (pod => $args{pod}) x !!(defined $args{pod}),
+            # XXX copt_* not yet observed
         );
         return $res if $res->[0] != 200;
         $code = $res->[2];
@@ -519,6 +531,11 @@ sub gen_pericmd_script {
 
             (!$args{copt_help_enable} ? "delete \$cmdline->{common_opts}{help};\n\n" :
                  defined($args{copt_help_getopt}) ? "\$cmdline->{common_opts}{help}{getopt} = ".dump($args{copt_help_getopt}).";\n\n" : ""),
+
+            (!$args{copt_naked_res_enable} ? "delete \$cmdline->{common_opts}{naked_res};\n\n" : (
+                (defined($args{copt_naked_res_getopt})  ? "\$cmdline->{common_opts}{naked_res}{getopt}  = ".dump($args{copt_naked_res_getopt}).";\n\n" : ""),
+                (defined($args{copt_naked_res_default}) ? "\$cmdline->{common_opts}{naked_res}{default} = ".dump($args{copt_naked_res_default}).";\n\n" : ""),
+            )),
 
             "\$cmdline->run;\n",
             "\n",

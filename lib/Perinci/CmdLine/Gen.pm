@@ -1,10 +1,5 @@
 package Perinci::CmdLine::Gen;
 
-# AUTHORITY
-# DATE
-# DIST
-# VERSION
-
 use 5.010001;
 use strict;
 use warnings;
@@ -19,6 +14,11 @@ our @EXPORT_OK = qw(
                        gen_perinci_cmdline_script
                        gen_pericmd_script
                );
+
+# AUTHORITY
+# DATE
+# DIST
+# VERSION
 
 our %SPEC;
 
@@ -478,11 +478,6 @@ sub gen_pericmd_script {
             "\n",
             $gen_sig,
             "\n",
-            "# AUTHORITY\n",
-            "# DATE\n",
-            "# DIST\n",
-            "# VERSION\n",
-            "\n",
             "use 5.010001;\n",
             "use strict;\n",
             "use warnings;\n",
@@ -499,6 +494,12 @@ sub gen_pericmd_script {
 
             ($args{ssl_verify_hostname} ?
                  "" : '$ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0;' . "\n\n"),
+
+            "# AUTHORITY\n",
+            "# DATE\n",
+            "# DIST\n",
+            "# VERSION\n",
+            "\n",
 
             ($args{code_before_instantiate_cmdline} ? "# code_before_instantiate_cmdline\n" . $args{code_before_instantiate_cmdline} . "\n\n" : ""),
 

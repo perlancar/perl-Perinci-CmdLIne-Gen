@@ -1,10 +1,5 @@
 package Perinci::CmdLine::Gen;
 
-# AUTHORITY
-# DATE
-# DIST
-# VERSION
-
 use 5.010001;
 use strict;
 use warnings;
@@ -19,6 +14,11 @@ our @EXPORT_OK = qw(
                        gen_perinci_cmdline_script
                        gen_pericmd_script
                );
+
+# AUTHORITY
+# DATE
+# DIST
+# VERSION
 
 our %SPEC;
 
@@ -462,9 +462,10 @@ sub gen_pericmd_script {
         # determine minimum required version
         if ($cmdline_mod =~ /\APerinci::CmdLine::(Lite|Any)\z/) {
             if ($cmdline_mod eq 'Perinci::CmdLine::Lite') {
-                $cmdline_mod_ver = "1.827";
+                $cmdline_mod_ver = "1.915";
             } else {
-                $extra_modules->{"Perinci::CmdLine::Lite"} = "1.827";
+                $extra_modules->{"Perinci::CmdLine::Any"} = "0.152";
+                $extra_modules->{"Perinci::CmdLine::Lite"} = "1.915";
             }
         } elsif ($cmdline_mod =~ /\APerinci::CmdLine::Classic\z/) {
             $extra_modules->{"Perinci::CmdLine::Base"} = "1.827";
@@ -476,11 +477,6 @@ sub gen_pericmd_script {
             "#!", ($args{interpreter_path} // $^X), "\n",
             "\n",
             $gen_sig,
-            "\n",
-            "# AUTHORITY\n",
-            "# DATE\n",
-            "# DIST\n",
-            "# VERSION\n",
             "\n",
             "use 5.010001;\n",
             "use strict;\n",
@@ -498,6 +494,12 @@ sub gen_pericmd_script {
 
             ($args{ssl_verify_hostname} ?
                  "" : '$ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0;' . "\n\n"),
+
+            "# AUTHORITY\n",
+            "# DATE\n",
+            "# DIST\n",
+            "# VERSION\n",
+            "\n",
 
             ($args{code_before_instantiate_cmdline} ? "# code_before_instantiate_cmdline\n" . $args{code_before_instantiate_cmdline} . "\n\n" : ""),
 
